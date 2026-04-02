@@ -153,7 +153,7 @@ export default function App() {
             <p className="mt-4 text-lg text-neutral-400 leading-relaxed">Purpose-built tools for residential construction managers who manage 5-20 active lots and need speed over complexity.</p>
           </Reveal>
           <div className="grid gap-px overflow-hidden rounded-2xl bg-white/5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => (
+            {SERVICES.map((s) => (
               <Reveal key={s.title}>
                 <div className="group flex flex-col bg-neutral-950 p-8 transition-colors hover:bg-neutral-900/50 h-full">
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-white/5 text-mar-light transition group-hover:bg-mar/10">
