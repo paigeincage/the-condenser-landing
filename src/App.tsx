@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { BackgroundPaths } from "@/components/ui/background-paths"
-import { Button } from "@/components/ui/button"
 import {
   ArrowRight,
   Menu,
@@ -18,8 +17,6 @@ import {
   Footprints,
   BookUser,
   ClipboardList,
-  CheckCircle2,
-  ChevronRight,
   Star,
 } from "lucide-react"
 
@@ -274,8 +271,8 @@ export default function App() {
               <Reveal key={t.name}>
                 <div className="flex h-full flex-col rounded-2xl border border-white/5 bg-neutral-950 p-8">
                   <div className="mb-4 flex gap-1">
-                    {Array.from({ length: t.stars }).map((_, i) => (
-                      <Star key={i} size={16} className="fill-amber-500 text-amber-500" />
+                    {Array.from({ length: t.stars }).map((_, idx) => (
+                      <Star key={idx} size={16} className="fill-amber-500 text-amber-500" />
                     ))}
                   </div>
                   <p className="mb-6 flex-1 text-sm leading-relaxed text-neutral-300">"{t.text}"</p>
