@@ -22,7 +22,7 @@ import {
   MessageSquare,
 } from "lucide-react"
 
-const APP_URL = "https://the-condenser-production.up.railway.app/"
+const APP_URL = "https://the-condenser-production.up.railway.app/home"
 
 /* ── Animated section wrapper ── */
 function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -225,7 +225,7 @@ export default function App() {
             <a href="#faq" className="text-sm font-medium text-neutral-400 transition hover:text-white">FAQ</a>
             <a href="#contact" className="text-sm font-medium text-neutral-400 transition hover:text-white">Contact</a>
             <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-copper px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]">
-              Early Access <ArrowRight size={14} />
+              Clock In <ArrowRight size={14} />
             </a>
           </div>
           <button className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-400 lg:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
@@ -243,7 +243,7 @@ export default function App() {
             ].map(l => (
               <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block border-b border-white/5 py-3 text-base font-medium text-neutral-300">{l.label}</a>
             ))}
-            <a href={APP_URL} className="mt-4 block text-base font-semibold text-copper-light">Early Access →</a>
+            <a href={APP_URL} className="mt-4 block text-base font-semibold text-copper-light">Clock In →</a>
           </motion.div>
         )}
       </nav>
@@ -280,7 +280,7 @@ export default function App() {
               className="mt-10 flex flex-wrap gap-4"
             >
               <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-dark px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-900 hover:shadow-xl">
-                Early Access <ArrowRight size={16} />
+                Clock In <ArrowRight size={16} />
               </a>
               <a href="#features" className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 px-8 py-4 text-base font-semibold text-white transition hover:border-white/60 hover:bg-white/10">
                 See Features
@@ -612,7 +612,7 @@ export default function App() {
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-dark px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-900 hover:shadow-xl">
-                Get Early Access <ArrowRight size={16} />
+                Clock In <ArrowRight size={16} />
               </a>
             </div>
           </Reveal>
