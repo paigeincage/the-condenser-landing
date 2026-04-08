@@ -17,6 +17,9 @@ import {
   BarChart3,
   Star,
   Check,
+  FileText,
+  WifiOff,
+  MessageSquare,
 } from "lucide-react"
 
 const APP_URL = "https://the-condenser-production.up.railway.app/"
@@ -39,6 +42,24 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
 }
 
 /* ── Data ── */
+const PROBLEMS = [
+  {
+    icon: <FileText size={22} />,
+    title: "Drowning in paperwork",
+    desc: "Walk 5 houses a day, then spend evenings typing lists from scribbled notes and memory. Half the items get lost.",
+  },
+  {
+    icon: <WifiOff size={22} />,
+    title: "No signal, no system",
+    desc: "Jobsites have zero cell service. Cloud-only tools are useless when you need them most — mid-walkthrough.",
+  },
+  {
+    icon: <MessageSquare size={22} />,
+    title: "Chasing trade partners",
+    desc: "You copy-paste items into texts and emails, one trade at a time. Then you chase them for updates nobody tracks.",
+  },
+]
+
 const FEATURES = [
   {
     title: "Punch List Engine",
@@ -331,6 +352,34 @@ export default function App() {
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-40">
             {["PULTE HOMES", "DR HORTON", "LENNAR", "MERITAGE", "TOLL BROTHERS"].map(name => (
               <span key={name} className="font-display text-lg font-bold uppercase tracking-widest text-white">{name}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PROBLEM — narrative bridge ===== */}
+      <section className="bg-dark-card py-24 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <Reveal className="mb-14 max-w-2xl">
+            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">The Problem</p>
+            <h2 className="font-display text-4xl font-extrabold uppercase leading-[0.95] tracking-tight lg:text-5xl">
+              CMs deserve<br />better tools
+            </h2>
+            <p className="mt-5 max-w-xl text-base text-text-secondary leading-relaxed">
+              You manage 5-20 active lots and spend more time on paperwork than building. These should sound familiar.
+            </p>
+          </Reveal>
+          <div className="grid gap-5 sm:grid-cols-3">
+            {PROBLEMS.map((p) => (
+              <Reveal key={p.title}>
+                <div className="h-full rounded-xl border border-white/5 bg-dark p-6 transition hover:border-copper/20">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-copper/10 text-copper">
+                    {p.icon}
+                  </div>
+                  <h3 className="mb-2 font-display text-lg font-bold uppercase tracking-wide">{p.title}</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">{p.desc}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
