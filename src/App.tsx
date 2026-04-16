@@ -474,7 +474,7 @@ export default function App() {
           <Reveal>
             <div className="grid grid-cols-2 gap-4">
               <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=500&fit=crop" alt="Residential interior" className="h-72 w-full rounded-2xl object-cover" loading="lazy" />
-              <img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0049?w=400&h=500&fit=crop" alt="New home exterior" className="mt-8 h-72 w-full rounded-2xl object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=500&fit=crop" alt="New home exterior" className="mt-8 h-72 w-full rounded-2xl object-cover" loading="lazy" />
             </div>
           </Reveal>
           <Reveal>
