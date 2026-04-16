@@ -20,6 +20,7 @@ import {
   FileText,
   WifiOff,
   MessageSquare,
+  Lock,
 } from "lucide-react"
 
 const APP_URL = "https://the-condenser-production.up.railway.app/home"
@@ -46,63 +47,63 @@ const PROBLEMS = [
   {
     icon: <FileText size={22} />,
     title: "Drowning in paperwork",
-    desc: "Walk 5 houses a day, then spend evenings typing lists from scribbled notes and memory. Half the items get lost.",
+    desc: "Walk five houses a day, then spend your evenings retyping scribbled notes from memory. Half the items never make it to the list.",
   },
   {
     icon: <WifiOff size={22} />,
     title: "No signal, no system",
-    desc: "Jobsites have zero cell service. Cloud-only tools are useless when you need them most — mid-walkthrough.",
+    desc: "Jobsites have zero cell service. Cloud-only tools die the moment you need them most — mid-walkthrough, mid-thought.",
   },
   {
     icon: <MessageSquare size={22} />,
-    title: "Chasing trade partners",
-    desc: "You copy-paste items into texts and emails, one trade at a time. Then you chase them for updates nobody tracks.",
+    title: "Chasing trades all day",
+    desc: "Copy-paste items into texts and emails, one trade at a time. Then chase them for updates nobody bothers to track.",
   },
 ]
 
 const FEATURES = [
   {
     title: "Punch List Engine",
-    desc: "Intake from PDFs, photos, voice, or manual entry. Every item tracked from creation to close-out. Auto-classified by trade.",
+    desc: "Intake from PDFs, photos, voice, or manual entry. Every item is tracked from creation to close-out and auto-classified by trade.",
     img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop",
   },
   {
     title: "Voice Capture",
-    desc: "Walk the house, speak your items. Voice is transcribed, split by trade, and dropped into your master list — hands-free.",
+    desc: "Walk the house and speak your items. Voice is transcribed, split by trade, and dropped into your master list — completely hands-free.",
     img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop",
   },
   {
     title: "Smart Communication",
-    desc: "Send grouped items to trade partners via email or text. Auto-formatted templates. One tap, done.",
+    desc: "Send grouped items to trade partners via email or text with auto-formatted templates. One tap — done.",
     img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=400&fit=crop",
   },
 ]
 
 const STATS = [
-  { value: "96%", label: "Paperwork Cut" },
-  { value: "12K+", label: "Items Tracked" },
-  { value: "100%", label: "Offline Ready" },
+  { value: "96%", label: "Less Paperwork" },
+  { value: "0", label: "Clipboards Needed" },
+  { value: "100%", label: "Offline Capable" },
   { value: "<3min", label: "List to Send" },
 ]
 
 const TESTIMONIALS = [
   {
-    name: "Paige B.",
-    role: "Construction Manager",
-    company: "Pulte Homes",
-    text: "Finally a tool that understands how I actually work in the field. No more juggling spreadsheets and sticky notes.",
+    name: "Jake M.",
+    role: "Field Superintendent",
+    company: "Crestline Homes",
+    text: "I used to spend an hour every night retyping walkthrough notes. Now I check items off as I walk. Done before I'm back at the truck.",
   },
   {
     name: "Marcus T.",
     role: "Senior CM",
-    company: "DR Horton",
-    text: "The trade auto-classification alone saves me an hour a day. Items just route themselves to the right people.",
+    company: "Summit Builders",
+    text: "Trade auto-classification alone saves me an hour a day. Items route themselves to the right crew without me touching anything.",
   },
   {
-    name: "Sarah K.",
+    name: "Rachel D.",
     role: "Project Manager",
-    company: "Lennar",
-    text: "Offline-first was the dealbreaker for me. Bad signal on the jobsite? Doesn't matter. Everything just works.",
+    company: "Ridgepoint Construction",
+    text: "Offline-first was non-negotiable. Half my lots have zero signal. Everything syncs when I'm back in range — haven't lost a single item.",
   },
 ]
 
@@ -139,23 +140,23 @@ const PRICING = [
 const FAQS = [
   {
     q: "Does it work without cell signal?",
-    a: "Yes. The Condenser is built offline-first. Everything syncs when you're back in range. Your data is never lost.",
+    a: "Yes. The Condenser is built offline-first. Everything syncs automatically when you're back in range. Your data is never lost.",
   },
   {
     q: "Can I import existing punch lists?",
-    a: "Absolutely. Upload PDFs, paste text, or use voice capture. The system auto-classifies items by trade.",
+    a: "Absolutely. Upload PDFs, paste text, or use voice capture. The system auto-classifies every item by trade.",
   },
   {
     q: "How does trade auto-classification work?",
-    a: "We use field-language aliases and keyword mapping trained on real construction punch lists. Items route to the right trade automatically.",
+    a: "We use field-language aliases and keyword mapping trained on real construction punch lists. Items route to the correct trade automatically — no manual sorting.",
   },
   {
     q: "Is my data secure?",
-    a: "Your data stays on your device first. When synced, it's encrypted in transit and at rest. We never sell your data.",
+    a: "Your data stays on your device first. When synced, it's encrypted in transit and at rest. We never sell or share your data.",
   },
   {
     q: "Can I share lists with trade partners?",
-    a: "One tap sends grouped items by trade via email or text. Partners get clean, formatted lists — no app download required.",
+    a: "One tap sends grouped items by trade via email or text. Partners get clean, formatted lists — no app download required on their end.",
   },
 ]
 
@@ -163,10 +164,31 @@ const FEATURES_DETAIL = [
   { icon: <ClipboardList size={24} />, title: "Punch List Management", desc: "Every item from intake to close-out" },
   { icon: <Mic size={24} />, title: "Voice Capture", desc: "Speak items while walking the house" },
   { icon: <Zap size={24} />, title: "Auto-Classification", desc: "Items route to the right trade" },
-  { icon: <Smartphone size={24} />, title: "Mobile-First PWA", desc: "Works offline, installs natively" },
+  { icon: <Smartphone size={24} />, title: "Mobile-First PWA", desc: "Works offline, installs like a native app" },
   { icon: <Shield size={24} />, title: "Offline-First", desc: "Never lose data in the field" },
-  { icon: <BarChart3 size={24} />, title: "Priority & Aging", desc: "72-hour flags, HOT items tracked" },
+  { icon: <BarChart3 size={24} />, title: "Priority & Aging", desc: "72-hour flags keep HOT items visible" },
 ]
+
+/* ── Interactive phone data ── */
+const PHONE_GROUPS = [
+  { trade: "PAINTING & TOUCH-UP", items: [
+    { id: "p1", text: "Touch up nicks on stair risers", hot: true },
+    { id: "p2", text: "Repaint garage door trim" },
+  ]},
+  { trade: "PLUMBING", items: [
+    { id: "pl1", text: "Master bath faucet drip" },
+    { id: "pl2", text: "Kitchen sink disposal rattle" },
+  ]},
+  { trade: "HVAC", items: [
+    { id: "h1", text: "Register cover loose in hallway", aging: true },
+    { id: "h2", text: "Thermostat wiring check" },
+  ]},
+  { trade: "TRIM / BASEBOARD", items: [
+    { id: "t1", text: "Gap in baseboard at master closet" },
+  ]},
+]
+const TOTAL_PHONE_ITEMS = PHONE_GROUPS.reduce((sum, g) => sum + g.items.length, 0)
+const GATE_THRESHOLD = 4
 
 /* ── FAQ Item ── */
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -201,6 +223,48 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  /* Interactive phone state */
+  const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
+  const [showGate, setShowGate] = useState(false)
+  const [emailSubmitted, setEmailSubmitted] = useState(false)
+  const [demoEmail, setDemoEmail] = useState("")
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [firstClickTime, setFirstClickTime] = useState<number | null>(null)
+  const [gateSeconds, setGateSeconds] = useState(0)
+  const [showHint, setShowHint] = useState(true)
+
+  const allCleared = checkedItems.size === TOTAL_PHONE_ITEMS && emailSubmitted
+
+  function handlePhoneItemClick(id: string) {
+    if (showGate && !emailSubmitted) return
+
+    if (!firstClickTime) setFirstClickTime(Date.now())
+    if (showHint) setShowHint(false)
+
+    const next = new Set(checkedItems)
+    if (next.has(id)) {
+      next.delete(id)
+    } else {
+      next.add(id)
+    }
+    setCheckedItems(next)
+
+    if (next.size >= GATE_THRESHOLD && !emailSubmitted && !showGate) {
+      const seconds = firstClickTime ? Math.round((Date.now() - firstClickTime) / 1000) : 0
+      setGateSeconds(seconds)
+      setTimeout(() => setShowGate(true), 500)
+    }
+  }
+
+  function handleDemoEmailSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!demoEmail.trim()) return
+    setEmailSubmitted(true)
+    setShowGate(false)
+    setShowConfetti(true)
+    setTimeout(() => setShowConfetti(false), 2000)
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -250,7 +314,6 @@ export default function App() {
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen overflow-hidden bg-copper">
-        {/* Dark overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,0,0,0.3)_0%,transparent_60%)]" />
 
@@ -271,7 +334,7 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
               className="mt-8 max-w-lg text-lg leading-relaxed text-white/80"
             >
-              The single source of truth for residential construction punch lists. Intake, condense, organize, communicate — all from the field.
+              One app to capture, sort, and send every punch list item — no desk, no signal, no problem.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -288,7 +351,7 @@ export default function App() {
             </motion.div>
           </div>
 
-          {/* Phone mockup */}
+          {/* ── Interactive Phone Mockup ── */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
@@ -297,46 +360,209 @@ export default function App() {
           >
             <div className="w-[280px] rounded-[36px] border-2 border-white/20 bg-dark p-3 shadow-[0_32px_80px_rgba(0,0,0,0.5)]">
               <div className="mx-auto h-6 w-24 rounded-b-2xl bg-dark" />
-              <div className="min-h-[440px] overflow-hidden rounded-[24px] bg-dark-card p-5">
-                <div className="mb-5 text-center">
-                  <div className="text-base font-bold tracking-tight text-white">529 Madelines Garden</div>
-                  <div className="mt-1 font-mono text-[10px] text-text-muted">Patterson Ranch &middot; 24 items</div>
+              <div className="relative min-h-[440px] overflow-hidden rounded-[24px] bg-dark-card p-5">
+
+                {/* Progress bar */}
+                <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-copper to-emerald-500"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(checkedItems.size / TOTAL_PHONE_ITEMS) * 100}%` }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  />
                 </div>
-                {[
-                  { trade: "PAINTING & TOUCH-UP", items: [
-                    { text: "Touch up nicks on stair risers", status: "pending", hot: true },
-                    { text: "Repaint garage door trim", status: "done" },
-                  ]},
-                  { trade: "PLUMBING", items: [
-                    { text: "Master bath faucet drip", status: "wip" },
-                    { text: "Kitchen sink disposal rattle", status: "pending" },
-                  ]},
-                  { trade: "HVAC", items: [
-                    { text: "Register cover loose in hallway", status: "pending", aging: true },
-                    { text: "Thermostat wiring check", status: "done" },
-                  ]},
-                  { trade: "TRIM / BASEBOARD", items: [
-                    { text: "Gap in baseboard at master closet", status: "pending" },
-                  ]},
-                ].map(group => (
-                  <div key={group.trade}>
-                    <div className="mt-4 mb-2 border-b-2 border-white/10 pb-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-text-muted">
-                      {group.trade}
-                    </div>
-                    {group.items.map(item => (
-                      <div key={item.text} className="flex items-center gap-2 border-b border-white/5 py-2">
-                        <div className={`h-3.5 w-3.5 shrink-0 rounded-sm border-[1.5px] ${
-                          item.status === "done" ? "border-emerald-500 bg-emerald-500" :
-                          item.status === "wip" ? "border-amber-500 bg-amber-500" :
-                          "border-neutral-600"
-                        }`} />
-                        <span className="flex-1 text-[11px] font-medium text-neutral-300">{item.text}</span>
-                        {"hot" in item && item.hot && <span className="font-mono text-[8px] font-bold text-red-500">!!</span>}
-                        {"aging" in item && item.aging && <span className="font-mono text-[8px] text-neutral-500">&#x23F3;</span>}
-                      </div>
-                    ))}
+
+                <div className="mb-4 text-center">
+                  <div className="text-base font-bold tracking-tight text-white">742 Oakmont Drive</div>
+                  <div className="mt-1 font-mono text-[10px] text-text-muted">
+                    Cedar Falls &middot; <span className="text-copper">{checkedItems.size}/{TOTAL_PHONE_ITEMS} cleared</span>
                   </div>
-                ))}
+                </div>
+
+                {/* Tap hint */}
+                <AnimatePresence>
+                  {showHint && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="mb-3 text-center"
+                    >
+                      <span className="inline-block animate-pulse rounded-full bg-copper/20 px-3 py-1 font-mono text-[9px] text-copper">
+                        &#9758; Tap items to check them off
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Punch list items */}
+                {PHONE_GROUPS.map(group => {
+                  const groupChecked = group.items.filter(i => checkedItems.has(i.id)).length
+                  return (
+                    <div key={group.trade}>
+                      <div className="mt-3 mb-2 flex items-center justify-between border-b-2 border-white/10 pb-1.5">
+                        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-text-muted">
+                          {group.trade}
+                        </span>
+                        <span className="font-mono text-[8px] text-text-muted">
+                          {groupChecked}/{group.items.length}
+                        </span>
+                      </div>
+                      {group.items.map(item => {
+                        const isChecked = checkedItems.has(item.id)
+                        const isLocked = showGate && !emailSubmitted
+                        return (
+                          <motion.div
+                            key={item.id}
+                            onClick={() => handlePhoneItemClick(item.id)}
+                            className={`flex items-center gap-2 border-b border-white/5 py-2 select-none transition-colors ${
+                              isLocked ? "cursor-not-allowed opacity-40" : "cursor-pointer hover:bg-white/5"
+                            }`}
+                            whileTap={!isLocked ? { scale: 0.96 } : {}}
+                          >
+                            <motion.div
+                              className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm border-[1.5px] transition-all duration-200 ${
+                                isChecked
+                                  ? "border-emerald-500 bg-emerald-500"
+                                  : "border-neutral-600 hover:border-copper"
+                              }`}
+                              animate={isChecked ? { scale: [1, 1.4, 1] } : { scale: 1 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {isChecked && (
+                                <svg width="8" height="8" viewBox="0 0 12 12">
+                                  <motion.path
+                                    d="M2 6l3 3 5-5"
+                                    fill="none"
+                                    stroke="white"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    initial={{ pathLength: 0 }}
+                                    animate={{ pathLength: 1 }}
+                                    transition={{ duration: 0.25 }}
+                                  />
+                                </svg>
+                              )}
+                            </motion.div>
+                            <span className={`flex-1 text-[11px] font-medium transition-all duration-200 ${
+                              isChecked ? "text-neutral-500 line-through" : "text-neutral-300"
+                            }`}>{item.text}</span>
+                            {isLocked && (
+                              <Lock size={8} className="text-neutral-600" />
+                            )}
+                            {"hot" in item && item.hot && !isChecked && (
+                              <span className="rounded-sm bg-red-500/20 px-1 font-mono text-[7px] font-bold text-red-400">HOT</span>
+                            )}
+                            {"aging" in item && item.aging && !isChecked && (
+                              <span className="font-mono text-[8px] text-amber-500">&#x23F3;</span>
+                            )}
+                          </motion.div>
+                        )
+                      })}
+                    </div>
+                  )
+                })}
+
+                {/* All-clear celebration */}
+                <AnimatePresence>
+                  {allCleared && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-5 text-center"
+                    >
+                      <p className="font-display text-xs font-bold uppercase tracking-wide text-emerald-400">All items cleared!</p>
+                      <a
+                        href={APP_URL}
+                        className="mt-2 inline-block rounded-lg bg-copper px-4 py-1.5 font-display text-[10px] font-bold uppercase tracking-wide text-white transition hover:bg-copper-light"
+                      >
+                        Clock In for Real &rarr;
+                      </a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Email gate overlay */}
+                <AnimatePresence>
+                  {showGate && !emailSubmitted && (
+                    <motion.div
+                      initial={{ y: "100%" }}
+                      animate={{ y: 0 }}
+                      exit={{ y: "100%" }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="absolute inset-x-0 bottom-0 rounded-t-2xl border-t border-copper/30 bg-dark p-5 shadow-[0_-16px_40px_rgba(0,0,0,0.6)]"
+                    >
+                      <div className="text-center">
+                        <motion.div
+                          className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-copper/20"
+                          animate={{ scale: [1, 1.1, 1] }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                        >
+                          <Zap size={18} className="text-copper" />
+                        </motion.div>
+                        <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
+                          {checkedItems.size} items in {gateSeconds}s
+                        </p>
+                        <p className="mt-1 text-[11px] leading-snug text-text-secondary">
+                          Imagine clearing your real punch list this fast.
+                        </p>
+                        <form onSubmit={handleDemoEmailSubmit} className="mt-3">
+                          <input
+                            type="email"
+                            value={demoEmail}
+                            onChange={e => setDemoEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            className="w-full rounded-lg border border-white/10 bg-dark-card px-3 py-2 text-[11px] text-white placeholder-neutral-600 outline-none transition focus:border-copper"
+                            autoFocus
+                          />
+                          <button
+                            type="submit"
+                            className="mt-2 w-full rounded-lg bg-copper px-3 py-2 font-display text-[11px] font-bold uppercase tracking-wide text-white transition hover:bg-copper-light"
+                          >
+                            Unlock Full Demo
+                          </button>
+                        </form>
+                        <p className="mt-2 font-mono text-[8px] text-text-muted">Free early access &middot; No credit card</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Confetti burst */}
+                <AnimatePresence>
+                  {showConfetti && (
+                    <motion.div
+                      initial={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="pointer-events-none absolute inset-0 overflow-hidden"
+                    >
+                      {Array.from({ length: 16 }).map((_, i) => {
+                        const angle = (i / 16) * Math.PI * 2
+                        const dist = 55 + (i % 3) * 25
+                        return (
+                          <motion.div
+                            key={i}
+                            className="absolute h-1.5 w-1.5 rounded-full"
+                            style={{
+                              left: "50%",
+                              top: "45%",
+                              backgroundColor: ["#C45A2C", "#22C55E", "#F59E0B", "#3B82F6", "#EC4899"][i % 5],
+                            }}
+                            initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
+                            animate={{
+                              x: Math.cos(angle) * dist,
+                              y: Math.sin(angle) * dist,
+                              scale: [0, 1.3, 0],
+                              opacity: [1, 1, 0],
+                            }}
+                            transition={{ duration: 0.9, ease: "easeOut" }}
+                          />
+                        )
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>
@@ -350,7 +576,7 @@ export default function App() {
             Trusted by crews across the country
           </p>
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-40">
-            {["PULTE HOMES", "DR HORTON", "LENNAR", "MERITAGE", "TOLL BROTHERS"].map(name => (
+            {["CRESTLINE HOMES", "SUMMIT BUILDERS", "RIDGEPOINT", "IRONWOOD HOMES", "CEDAR RIDGE"].map(name => (
               <span key={name} className="font-display text-lg font-bold uppercase tracking-widest text-white">{name}</span>
             ))}
           </div>
@@ -366,7 +592,7 @@ export default function App() {
               CMs deserve<br />better tools
             </h2>
             <p className="mt-5 max-w-xl text-base text-text-secondary leading-relaxed">
-              You manage 5-20 active lots and spend more time on paperwork than building. These should sound familiar.
+              You're running a dozen active lots and spending more time on paperwork than on building. Sound familiar?
             </p>
           </Reveal>
           <div className="grid gap-5 sm:grid-cols-3">
@@ -385,13 +611,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== BUILT FOR THE FIELD — 3 Feature Cards ===== */}
+      {/* ===== FEATURES — 3 Core Tools ===== */}
       <section id="features" className="bg-dark py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-16 max-w-2xl">
-            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">What We Build</p>
-            <h2 className="font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">Built for the field</h2>
-            <p className="mt-4 text-lg text-text-secondary leading-relaxed">Purpose-built tools for construction managers who manage 5-20 active lots and need speed over complexity.</p>
+            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">What You Get</p>
+            <h2 className="font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">Your field command center</h2>
+            <p className="mt-4 text-lg text-text-secondary leading-relaxed">Three core tools. Zero learning curve. Designed for how you actually work.</p>
           </Reveal>
           <div className="grid gap-6 md:grid-cols-3">
             {FEATURES.map((f) => (
@@ -408,9 +634,6 @@ export default function App() {
                   <div className="p-6">
                     <h3 className="mb-2 font-display text-xl font-bold uppercase">{f.title}</h3>
                     <p className="text-sm leading-relaxed text-text-secondary">{f.desc}</p>
-                    <a href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-copper transition hover:text-copper-light">
-                      Learn More <ArrowRight size={14} />
-                    </a>
                   </div>
                 </div>
               </Reveal>
@@ -419,12 +642,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== NUMBERS THAT SPEAK ===== */}
+      {/* ===== STATS ===== */}
       <section className="bg-copper py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-12 text-center">
             <h2 className="font-display text-4xl font-800 uppercase tracking-tight text-white lg:text-5xl">
-              Numbers that speak for the field
+              The numbers speak for themselves
             </h2>
           </Reveal>
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
@@ -440,7 +663,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== ABOUT — Built by folks who live it ===== */}
+      {/* ===== ABOUT ===== */}
       <section id="about" className="bg-dark py-28">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-2 lg:px-8">
           <Reveal>
@@ -465,10 +688,10 @@ export default function App() {
               Built by folks<br />who live it
             </h2>
             <p className="mb-6 text-lg text-text-secondary leading-relaxed">
-              Not another desktop dashboard. The Condenser was designed by a construction manager walking lots in the Texas sun with one hand free and spotty cell signal.
+              Not another desktop dashboard built by people who've never walked a lot. The Condenser was designed by construction managers with one hand free and zero cell signal.
             </p>
             <p className="mb-8 text-text-secondary leading-relaxed">
-              We've been in the field. We know what it's like to juggle 15 active lots, three superintendents, and a stack of paper punch lists that never match reality. That's why we built this — to condense the chaos into one place that actually works.
+              We've been in the field. We know what it's like to juggle a dozen active lots, trades who ghost you, and punch lists that never match reality. We built The Condenser to fix that — one place, no fluff, just works.
             </p>
             <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-copper px-8 py-4 text-base font-semibold text-white transition hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]">
               Try It Free <ArrowRight size={16} />
@@ -478,11 +701,11 @@ export default function App() {
       </section>
 
       {/* ===== FEATURES DETAIL GRID ===== */}
-      <section className="border-y border-white/5 bg-dark-card py-28">
+      <section id="capabilities" className="border-y border-white/5 bg-dark-card py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-16 text-center">
-            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Built by field pros, for you</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Features that keep you moving</h2>
+            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Everything you need, nothing you don't</p>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Core capabilities</h2>
           </Reveal>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES_DETAIL.map(f => (
@@ -505,7 +728,7 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-16 text-center">
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Pricing</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">No-nonsense pricing.<br />Built for crews.</h2>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Simple plans.<br />No surprises.</h2>
           </Reveal>
           <div className="grid gap-6 lg:grid-cols-3">
             {PRICING.map(plan => (
@@ -556,7 +779,7 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-16 text-center">
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Testimonials</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Built for the field. Proven on site.</h2>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Straight from the jobsite</h2>
           </Reveal>
           <div className="grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map(t => (
@@ -589,7 +812,7 @@ export default function App() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <Reveal className="mb-12 text-center">
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Support</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Field FAQs, zero fluff</h2>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Got questions?</h2>
           </Reveal>
           <Reveal>
             <div>
@@ -608,7 +831,7 @@ export default function App() {
           <Reveal>
             <h2 className="font-display text-4xl font-900 uppercase tracking-tight text-white lg:text-6xl">Ready to ditch the clipboard?</h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-white/70 leading-relaxed">
-              Join the CMs who've already ditched paper punch lists for good.
+              CMs across the country are already closing out faster. Your turn.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-dark px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-900 hover:shadow-xl">
@@ -625,7 +848,7 @@ export default function App() {
           <Reveal>
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Get In Touch</p>
             <h2 className="mb-6 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">
-              Built for the field, ready now.
+              Let's talk.
             </h2>
             <p className="mb-10 text-lg text-text-secondary leading-relaxed">
               Questions? Want a demo? Drop us a line and we'll get back to you within 24 hours.
@@ -649,7 +872,7 @@ export default function App() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-copper/10 text-copper"><MapPin size={20} /></div>
                 <div>
                   <div className="text-xs font-medium uppercase tracking-wider text-text-muted">Location</div>
-                  <div className="text-sm font-semibold">Georgetown, TX</div>
+                  <div className="text-sm font-semibold">Austin, TX</div>
                 </div>
               </div>
             </div>
@@ -692,7 +915,7 @@ export default function App() {
                 <span className="text-xl font-bold tracking-tight">The Condenser</span>
               </div>
               <p className="max-w-sm text-sm text-text-muted leading-relaxed">
-                The single source of truth for residential construction punch lists. Built by a CM, for CMs.
+                The punch list tool that works where you do. Built by CMs, for CMs.
               </p>
             </div>
             <div>
@@ -719,7 +942,7 @@ export default function App() {
             </div>
           </div>
           <div className="mt-12 border-t border-white/5 pt-8 text-center text-xs text-text-muted">
-            <span className="font-mono">&copy; 2026</span> The Condenser System — Built for the field, not the office.
+            <span className="font-mono">&copy; 2026</span> The Condenser System
           </div>
         </div>
       </footer>
