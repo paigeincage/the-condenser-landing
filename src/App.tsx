@@ -479,7 +479,9 @@ export default function App() {
           </Reveal>
           <Reveal>
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Our Story</p>
-            <h2 className="mb-8 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight text-text-on-light lg:text-6xl">Built by folks<br />who live it</h2>
+            <h2 className="mb-6 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight text-text-on-light lg:text-6xl">Built by folks<br />who live it</h2>
+            <p className="mb-6 text-lg text-text-on-light-2 leading-relaxed">Not another desktop dashboard built by people who've never walked a lot. {COMPANY} was designed by construction managers with one hand free and zero cell signal.</p>
+            <p className="mb-8 text-text-on-light-2 leading-relaxed">We've been in the field. We know what it's like to juggle a dozen active lots, trades who ghost you, and punch lists that never match reality. We built {COMPANY} to fix that — one platform, no fluff, just works.</p>
             <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-copper px-8 py-4 text-base font-semibold text-white transition hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]">Try It Free <ArrowRight size={16} /></a>
           </Reveal>
         </div>
