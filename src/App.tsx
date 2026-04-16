@@ -23,6 +23,7 @@ import {
   Send,
   MessageCircle,
   Sparkles,
+  Play,
 } from "lucide-react"
 
 const APP_URL = "https://the-condenser-production.up.railway.app/home"
@@ -67,17 +68,17 @@ const FEATURES = [
   {
     title: "Punch List Engine",
     desc: "Intake from PDFs, photos, voice, or manual entry. Every item is tracked from creation to close-out and auto-classified by trade.",
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
   },
   {
     title: "Voice Capture",
     desc: "Walk the house and speak your items. Voice is transcribed, split by trade, and dropped into your master list — completely hands-free.",
-    img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop",
   },
   {
     title: "One-Tap Export",
     desc: "The first construction app that sends formatted punch lists directly via iMessage, SMS, or email — one tap, straight to the trade. No other app does this.",
-    img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop",
   },
 ]
 
@@ -241,9 +242,15 @@ export default function App() {
   const progressPercent = Math.min((checkedItems.size / COMPLETE_THRESHOLD) * 100, 100)
   const isComplete = checkedItems.size >= COMPLETE_THRESHOLD
 
+  function fireConfetti() {
+    setShowConfetti(true)
+    setPageConfetti(true)
+    setTimeout(() => setShowConfetti(false), 2500)
+    setTimeout(() => setPageConfetti(false), 4000)
+  }
+
   function handlePhoneItemClick(id: string) {
     if (showExport || showGate) return
-
     if (showHint) setShowHint(false)
 
     const next = new Set(checkedItems)
@@ -257,13 +264,6 @@ export default function App() {
     if (next.size >= COMPLETE_THRESHOLD && !showExport) {
       setTimeout(() => setShowExport(true), 600)
     }
-  }
-
-  function fireConfetti() {
-    setShowConfetti(true)
-    setPageConfetti(true)
-    setTimeout(() => setShowConfetti(false), 2500)
-    setTimeout(() => setPageConfetti(false), 4000)
   }
 
   function handleSendClick(channel: string) {
@@ -335,7 +335,9 @@ export default function App() {
         )}
       </nav>
 
-      {/* ===== HERO ===== */}
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 1. HERO ===== */}
+      {/* ═══════════════════════════════════════════════ */}
       <section className="relative min-h-screen overflow-hidden bg-copper">
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,0,0,0.3)_0%,transparent_60%)]" />
@@ -374,9 +376,7 @@ export default function App() {
             </motion.div>
           </div>
 
-          {/* ══════════════════════════════════════════════ */}
-          {/* ── INTERACTIVE PHONE MOCKUP ──────────────── */}
-          {/* ══════════════════════════════════════════════ */}
+          {/* ── Interactive Phone Mockup ── */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
@@ -387,9 +387,8 @@ export default function App() {
               <div className="mx-auto h-6 w-24 rounded-b-2xl bg-dark" />
               <div className="relative min-h-[440px] overflow-hidden rounded-[24px] bg-dark-card">
 
-                {/* ── Phone header + progress ── */}
+                {/* Phone header + progress */}
                 <div className="z-20 bg-dark-card px-5 pt-5 pb-3">
-                  {/* Progress bar */}
                   <div className="relative mb-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
                     <motion.div
                       className="h-full rounded-full"
@@ -402,7 +401,6 @@ export default function App() {
                       animate={{ width: `${progressPercent}%` }}
                       transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     />
-                    {/* Glow when complete */}
                     {isComplete && (
                       <motion.div
                         className="absolute inset-0 rounded-full"
@@ -413,7 +411,6 @@ export default function App() {
                       />
                     )}
                   </div>
-
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-sm font-bold tracking-tight text-white">742 Oakmont Drive</div>
@@ -436,17 +433,11 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* ── Scrollable items area ── */}
+                {/* Scrollable items */}
                 <div className="px-5 pb-5">
-                  {/* Tap hint */}
                   <AnimatePresence>
                     {showHint && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="mb-3 text-center"
-                      >
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-3 text-center">
                         <span className="inline-block animate-pulse rounded-full bg-copper/20 px-3 py-1 font-mono text-[9px] text-copper">
                           &#9758; Tap items to check them off
                         </span>
@@ -454,15 +445,12 @@ export default function App() {
                     )}
                   </AnimatePresence>
 
-                  {/* Punch list items */}
                   {PHONE_GROUPS.map(group => {
                     const groupChecked = group.items.filter(i => checkedItems.has(i.id)).length
                     return (
                       <div key={group.trade}>
                         <div className="mt-3 mb-2 flex items-center justify-between border-b-2 border-white/10 pb-1.5">
-                          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-text-muted">
-                            {group.trade}
-                          </span>
+                          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-text-muted">{group.trade}</span>
                           <span className={`font-mono text-[8px] ${groupChecked === group.items.length ? "text-emerald-500" : "text-text-muted"}`}>
                             {groupChecked}/{group.items.length}
                           </span>
@@ -481,38 +469,20 @@ export default function App() {
                             >
                               <motion.div
                                 className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm border-[1.5px] transition-all duration-200 ${
-                                  isChecked
-                                    ? "border-emerald-500 bg-emerald-500"
-                                    : "border-neutral-600"
+                                  isChecked ? "border-emerald-500 bg-emerald-500" : "border-neutral-600"
                                 }`}
                                 animate={isChecked ? { scale: [1, 1.5, 1] } : { scale: 1 }}
                                 transition={{ duration: 0.3 }}
                               >
                                 {isChecked && (
                                   <svg width="8" height="8" viewBox="0 0 12 12">
-                                    <motion.path
-                                      d="M2 6l3 3 5-5"
-                                      fill="none"
-                                      stroke="white"
-                                      strokeWidth="2.5"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      initial={{ pathLength: 0 }}
-                                      animate={{ pathLength: 1 }}
-                                      transition={{ duration: 0.25 }}
-                                    />
+                                    <motion.path d="M2 6l3 3 5-5" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.25 }} />
                                   </svg>
                                 )}
                               </motion.div>
-                              <span className={`flex-1 text-[11px] font-medium transition-all duration-200 ${
-                                isChecked ? "text-neutral-500 line-through" : "text-neutral-300"
-                              }`}>{item.text}</span>
-                              {"hot" in item && item.hot && !isChecked && (
-                                <span className="rounded-sm bg-red-500/20 px-1 font-mono text-[7px] font-bold text-red-400">HOT</span>
-                              )}
-                              {"aging" in item && item.aging && !isChecked && (
-                                <span className="font-mono text-[8px] text-amber-500">&#x23F3;</span>
-                              )}
+                              <span className={`flex-1 text-[11px] font-medium transition-all duration-200 ${isChecked ? "text-neutral-500 line-through" : "text-neutral-300"}`}>{item.text}</span>
+                              {"hot" in item && item.hot && !isChecked && <span className="rounded-sm bg-red-500/20 px-1 font-mono text-[7px] font-bold text-red-400">HOT</span>}
+                              {"aging" in item && item.aging && !isChecked && <span className="font-mono text-[8px] text-amber-500">&#x23F3;</span>}
                             </motion.div>
                           )
                         })}
@@ -521,9 +491,7 @@ export default function App() {
                   })}
                 </div>
 
-                {/* ══════════════════════════════════════ */}
-                {/* ── EXPORT OVERLAY — THE KILLER FEATURE */}
-                {/* ══════════════════════════════════════ */}
+                {/* Export overlay */}
                 <AnimatePresence>
                   {showExport && !showSentConfirm && (
                     <motion.div
@@ -534,39 +502,16 @@ export default function App() {
                       className="absolute inset-x-0 bottom-0 z-30 rounded-t-2xl border-t-2 border-emerald-500/40 bg-dark p-5"
                       style={{ boxShadow: "0 -20px 60px rgba(0,0,0,0.8)" }}
                     >
-                      {/* Industry first badge */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="mb-3 flex justify-center"
-                      >
+                      <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="mb-3 flex justify-center">
                         <span className="inline-flex items-center gap-1 rounded-full border border-copper/40 bg-copper/10 px-2.5 py-0.5 font-mono text-[8px] font-bold uppercase tracking-widest text-copper">
                           <Sparkles size={8} /> Industry First
                         </span>
                       </motion.div>
-
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="mb-1 text-center"
-                      >
-                        <p className="font-display text-base font-bold uppercase tracking-wide text-emerald-400">
-                          List Complete
-                        </p>
-                        <p className="mt-0.5 text-[10px] text-text-secondary">
-                          Ready to send to trades — pick a channel
-                        </p>
+                      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mb-1 text-center">
+                        <p className="font-display text-base font-bold uppercase tracking-wide text-emerald-400">List Complete</p>
+                        <p className="mt-0.5 text-[10px] text-text-secondary">Ready to send to trades — pick a channel</p>
                       </motion.div>
-
-                      {/* Grouped trade preview */}
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.25 }}
-                        className="mb-3 space-y-1"
-                      >
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }} className="mb-3 space-y-1">
                         {PHONE_GROUPS.filter(g => g.items.some(i => checkedItems.has(i.id))).map(g => {
                           const count = g.items.filter(i => checkedItems.has(i.id)).length
                           return (
@@ -580,80 +525,44 @@ export default function App() {
                           )
                         })}
                       </motion.div>
-
-                      {/* Send channel buttons */}
                       <div className="space-y-1.5">
                         {[
                           { id: "imessage", label: "iMessage", icon: <MessageCircle size={13} />, bg: "bg-[#0B93F6]", hoverBg: "hover:bg-[#0A84DE]", glow: "hover:shadow-[0_0_16px_rgba(11,147,246,0.5)]" },
                           { id: "sms", label: "Text / SMS", icon: <Smartphone size={13} />, bg: "bg-emerald-600", hoverBg: "hover:bg-emerald-500", glow: "hover:shadow-[0_0_16px_rgba(34,197,94,0.5)]" },
                           { id: "email", label: "Email", icon: <Mail size={13} />, bg: "bg-copper", hoverBg: "hover:bg-copper-light", glow: "hover:shadow-[0_0_16px_rgba(196,90,44,0.5)]" },
                         ].map((ch, idx) => (
-                          <motion.button
-                            key={ch.id}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.35 + idx * 0.08 }}
-                            onClick={() => handleSendClick(ch.id)}
+                          <motion.button key={ch.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.35 + idx * 0.08 }} onClick={() => handleSendClick(ch.id)}
                             className={`flex w-full items-center justify-center gap-2 rounded-lg ${ch.bg} ${ch.hoverBg} ${ch.glow} px-3 py-2 font-display text-[11px] font-bold uppercase tracking-wide text-white transition-all`}
                           >
-                            {ch.icon}
-                            Send via {ch.label}
+                            {ch.icon} Send via {ch.label}
                           </motion.button>
                         ))}
                       </div>
-
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6 }}
-                        className="mt-2.5 text-center font-mono text-[7px] uppercase tracking-wider text-text-muted"
-                      >
+                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-2.5 text-center font-mono text-[7px] uppercase tracking-wider text-text-muted">
                         One tap. Formatted. Sent. No other app does this.
                       </motion.p>
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                {/* ══════════════════════════════════ */}
-                {/* ── EMAIL GATE ─────────────────── */}
-                {/* ══════════════════════════════════ */}
+                {/* Email gate */}
                 <AnimatePresence>
                   {showGate && !emailSubmitted && (
-                    <motion.div
-                      initial={{ y: "100%" }}
-                      animate={{ y: 0 }}
-                      exit={{ y: "100%" }}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      className="absolute inset-x-0 bottom-0 z-40 rounded-t-2xl border-t border-copper/30 bg-dark p-5"
-                      style={{ boxShadow: "0 -20px 60px rgba(0,0,0,0.8)" }}
+                    <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="absolute inset-x-0 bottom-0 z-40 rounded-t-2xl border-t border-copper/30 bg-dark p-5" style={{ boxShadow: "0 -20px 60px rgba(0,0,0,0.8)" }}
                     >
                       <div className="text-center">
-                        <motion.div
-                          className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-copper/20"
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                        >
+                        <motion.div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-copper/20" animate={{ scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 2 }}>
                           <Send size={16} className="text-copper" />
                         </motion.div>
                         <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
                           Ready to send via {selectedChannel === "imessage" ? "iMessage" : selectedChannel === "sms" ? "SMS" : "Email"}
                         </p>
-                        <p className="mt-1 text-[10px] leading-snug text-text-secondary">
-                          Enter your email to unlock one-tap export<br />and try the full demo.
-                        </p>
+                        <p className="mt-1 text-[10px] leading-snug text-text-secondary">Enter your email to unlock one-tap export<br />and try the full demo.</p>
                         <form onSubmit={handleDemoEmailSubmit} className="mt-3">
-                          <input
-                            type="email"
-                            value={demoEmail}
-                            onChange={e => setDemoEmail(e.target.value)}
-                            placeholder="your@email.com"
-                            className="w-full rounded-lg border border-white/10 bg-dark-card px-3 py-2.5 text-[11px] text-white placeholder-neutral-600 outline-none transition focus:border-copper"
-                            autoFocus
-                          />
-                          <button
-                            type="submit"
-                            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-copper px-3 py-2.5 font-display text-[11px] font-bold uppercase tracking-wide text-white transition hover:bg-copper-light"
-                          >
+                          <input type="email" value={demoEmail} onChange={e => setDemoEmail(e.target.value)} placeholder="your@email.com"
+                            className="w-full rounded-lg border border-white/10 bg-dark-card px-3 py-2.5 text-[11px] text-white placeholder-neutral-600 outline-none transition focus:border-copper" autoFocus />
+                          <button type="submit" className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-copper px-3 py-2.5 font-display text-[11px] font-bold uppercase tracking-wide text-white transition hover:bg-copper-light">
                             <Zap size={12} /> Unlock & Send
                           </button>
                         </form>
@@ -663,84 +572,35 @@ export default function App() {
                   )}
                 </AnimatePresence>
 
-                {/* ══════════════════════════════════ */}
-                {/* ── SENT CONFIRMATION ───────────── */}
-                {/* ══════════════════════════════════ */}
+                {/* Sent confirmation */}
                 <AnimatePresence>
                   {showSentConfirm && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                       className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-dark-card/90"
                     >
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: [0, 1.2, 1] }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20"
-                      >
+                      <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.2, 1] }} transition={{ duration: 0.5 }} className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20">
                         <Check size={32} className="text-emerald-400" />
                       </motion.div>
-                      <motion.p
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="font-display text-lg font-bold uppercase tracking-wide text-emerald-400"
-                      >
-                        Sent!
-                      </motion.p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="mt-1 text-[11px] text-text-secondary"
-                      >
+                      <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="font-display text-lg font-bold uppercase tracking-wide text-emerald-400">Sent!</motion.p>
+                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-1 text-[11px] text-text-secondary">
                         {PHONE_GROUPS.filter(g => g.items.some(i => checkedItems.has(i.id))).length} trades notified instantly
                       </motion.p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8 }}
-                        className="mt-3 font-mono text-[8px] uppercase tracking-wider text-text-muted"
-                      >
-                        That just happened. One tap.
-                      </motion.p>
+                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="mt-3 font-mono text-[8px] uppercase tracking-wider text-text-muted">That just happened. One tap.</motion.p>
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                {/* ── Phone confetti burst ── */}
+                {/* Phone confetti */}
                 <AnimatePresence>
                   {showConfetti && (
-                    <motion.div
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="pointer-events-none absolute inset-0 z-[60] overflow-hidden"
-                    >
+                    <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }} className="pointer-events-none absolute inset-0 z-[60] overflow-hidden">
                       {Array.from({ length: 30 }).map((_, i) => {
                         const angle = (i / 30) * Math.PI * 2
                         const dist = 40 + (i % 4) * 25
                         return (
-                          <motion.div
-                            key={i}
-                            className="absolute"
-                            style={{
-                              left: "50%",
-                              top: "40%",
-                              width: i % 3 === 0 ? 8 : 5,
-                              height: i % 3 === 0 ? 8 : 5,
-                              borderRadius: i % 2 === 0 ? "50%" : "2px",
-                              backgroundColor: ["#C45A2C", "#22C55E", "#F59E0B", "#0B93F6", "#EC4899", "#A855F7"][i % 6],
-                            }}
+                          <motion.div key={i} className="absolute" style={{ left: "50%", top: "40%", width: i % 3 === 0 ? 8 : 5, height: i % 3 === 0 ? 8 : 5, borderRadius: i % 2 === 0 ? "50%" : "2px", backgroundColor: ["#C45A2C", "#22C55E", "#F59E0B", "#0B93F6", "#EC4899", "#A855F7"][i % 6] }}
                             initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
-                            animate={{
-                              x: Math.cos(angle) * dist,
-                              y: Math.sin(angle) * dist,
-                              scale: [0, 1.8, 0.5],
-                              opacity: [1, 1, 0],
-                              rotate: [0, 200 + i * 40],
-                            }}
+                            animate={{ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, scale: [0, 1.8, 0.5], opacity: [1, 1, 0], rotate: [0, 200 + i * 40] }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
                           />
                         )
@@ -748,15 +608,83 @@ export default function App() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ===== TRUSTED BY ===== */}
-      <section className="border-y border-white/5 bg-dark py-12">
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 2. CORE CAPABILITIES (moved to #2) ===== */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section id="features" className="bg-dark-cool py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Reveal className="mb-16 text-center">
+            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Everything you need, nothing you don't</p>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Core capabilities</h2>
+          </Reveal>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES_DETAIL.map(f => (
+              <Reveal key={f.title}>
+                <div className="flex flex-col items-center rounded-2xl border border-white/5 bg-dark/50 p-8 text-center transition hover:border-copper/20">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-copper/10 text-copper">
+                    {f.icon}
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold">{f.title}</h3>
+                  <p className="text-sm text-text-secondary">{f.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 3. VIDEO SECTION ═══════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="bg-dark-warm py-24 lg:py-28">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+          <Reveal className="mb-12 text-center">
+            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">See It In Action</p>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">
+              From walkthrough to sent<br />in under 3 minutes
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-text-secondary leading-relaxed">
+              Watch how The Condenser turns a chaotic punch list walkthrough into organized, trade-sorted items — sent to every trade with one tap.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="group relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-dark shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+              {/* Thumbnail — replace with actual video embed when ready */}
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=675&fit=crop"
+                alt="Residential home — The Condenser demo"
+                className="absolute inset-0 h-full w-full object-cover opacity-50 transition-opacity duration-500 group-hover:opacity-60"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/30 to-transparent" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <motion.button
+                  className="flex h-20 w-20 items-center justify-center rounded-full bg-copper shadow-[0_0_40px_rgba(196,90,44,0.5)] transition-transform hover:scale-110"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Play size={32} className="ml-1 text-white" fill="white" />
+                </motion.button>
+                <p className="mt-4 font-display text-sm font-bold uppercase tracking-wider text-white/70">Watch the Demo</p>
+              </div>
+              <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                <span className="rounded-full bg-dark/70 px-3 py-1 font-mono text-[10px] text-white/60">2:47</span>
+                <span className="rounded-full bg-copper/20 border border-copper/30 px-3 py-1 font-mono text-[10px] text-copper">HD</span>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 4. TRUSTED BY ═══════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="border-y border-white/5 bg-dark-card py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="mb-8 text-center font-display text-xl font-bold uppercase tracking-wider text-text-muted">
             Trusted by crews across the country
@@ -769,8 +697,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== PROBLEM — narrative bridge ===== */}
-      <section className="bg-dark-card py-24 lg:py-28">
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 5. PROBLEM ══════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="bg-dark-cool py-24 lg:py-28">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <Reveal className="mb-14 max-w-2xl">
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">The Problem</p>
@@ -784,7 +714,7 @@ export default function App() {
           <div className="grid gap-5 sm:grid-cols-3">
             {PROBLEMS.map((p) => (
               <Reveal key={p.title}>
-                <div className="h-full rounded-xl border border-white/5 bg-dark p-6 transition hover:border-copper/20">
+                <div className="h-full rounded-xl border border-white/5 bg-dark/50 p-6 transition hover:border-copper/20">
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-copper/10 text-copper">
                     {p.icon}
                   </div>
@@ -797,8 +727,57 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== FEATURES — 3 Core Tools ===== */}
-      <section id="features" className="bg-dark py-28">
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 6. PRICING (moved up) ══════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section id="pricing" className="bg-dark-warm py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Reveal className="mb-16 text-center">
+            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Pricing</p>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Simple plans.<br />No surprises.</h2>
+          </Reveal>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {PRICING.map(plan => (
+              <Reveal key={plan.name}>
+                <div className={`relative flex h-full flex-col rounded-2xl border p-8 transition ${
+                  plan.featured
+                    ? "border-copper bg-copper/5 shadow-[0_0_40px_rgba(196,90,44,0.15)]"
+                    : "border-white/10 bg-dark/50 hover:border-white/20"
+                }`}>
+                  {plan.featured && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-copper px-4 py-1 text-xs font-bold uppercase tracking-wider text-white">Most Popular</div>
+                  )}
+                  <h3 className="font-display text-2xl font-bold uppercase">{plan.name}</h3>
+                  <p className="mt-1 text-sm text-text-muted">{plan.desc}</p>
+                  <div className="mt-6 mb-6">
+                    <span className="font-display text-5xl font-900">{plan.price}</span>
+                    {plan.period && <span className="text-text-muted">{plan.period}</span>}
+                  </div>
+                  <ul className="mb-8 flex-1 space-y-3">
+                    {plan.features.map(feat => (
+                      <li key={feat} className="flex items-center gap-3 text-sm text-text-secondary">
+                        <Check size={16} className="shrink-0 text-copper" /> {feat}
+                      </li>
+                    ))}
+                  </ul>
+                  <a href={APP_URL} className={`inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-sm font-semibold transition-all ${
+                    plan.featured
+                      ? "bg-copper text-white hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]"
+                      : "border border-white/10 text-white hover:border-copper hover:bg-copper/5"
+                  }`}>
+                    {plan.cta} <ArrowRight size={14} />
+                  </a>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 7. FEATURES — 3 Core Tools ═════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="bg-dark py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-16 max-w-2xl">
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">What You Get</p>
@@ -810,12 +789,7 @@ export default function App() {
               <Reveal key={f.title}>
                 <div className="group overflow-hidden rounded-2xl border border-white/5 bg-dark-card transition hover:border-copper/30">
                   <div className="h-56 overflow-hidden">
-                    <img
-                      src={f.img}
-                      alt={f.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                    <img src={f.img} alt={f.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   </div>
                   <div className="p-6">
                     <h3 className="mb-2 font-display text-xl font-bold uppercase">{f.title}</h3>
@@ -828,13 +802,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== STATS ===== */}
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 8. STATS ════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
       <section className="bg-copper py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-12 text-center">
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight text-white lg:text-5xl">
-              The numbers speak for themselves
-            </h2>
+            <h2 className="font-display text-4xl font-800 uppercase tracking-tight text-white lg:text-5xl">The numbers speak for themselves</h2>
           </Reveal>
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {STATS.map((s) => (
@@ -849,30 +823,20 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== ABOUT ===== */}
-      <section id="about" className="bg-dark py-28">
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 9. ABOUT ════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section id="about" className="bg-dark-cool py-28">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-2 lg:px-8">
           <Reveal>
             <div className="grid grid-cols-2 gap-4">
-              <img
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=500&fit=crop"
-                alt="Construction worker"
-                className="h-72 w-full rounded-2xl object-cover"
-                loading="lazy"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=500&fit=crop"
-                alt="Jobsite"
-                className="mt-8 h-72 w-full rounded-2xl object-cover"
-                loading="lazy"
-              />
+              <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=500&fit=crop" alt="Residential interior" className="h-72 w-full rounded-2xl object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0049?w=400&h=500&fit=crop" alt="New home exterior" className="mt-8 h-72 w-full rounded-2xl object-cover" loading="lazy" />
             </div>
           </Reveal>
           <Reveal>
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Our Story</p>
-            <h2 className="mb-6 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">
-              Built by folks<br />who live it
-            </h2>
+            <h2 className="mb-6 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">Built by folks<br />who live it</h2>
             <p className="mb-6 text-lg text-text-secondary leading-relaxed">
               Not another desktop dashboard built by people who've never walked a lot. The Condenser was designed by construction managers with one hand free and zero cell signal.
             </p>
@@ -886,82 +850,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== FEATURES DETAIL GRID ===== */}
-      <section id="capabilities" className="border-y border-white/5 bg-dark-card py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <Reveal className="mb-16 text-center">
-            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Everything you need, nothing you don't</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Core capabilities</h2>
-          </Reveal>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES_DETAIL.map(f => (
-              <Reveal key={f.title}>
-                <div className="flex flex-col items-center text-center">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-copper/10 text-copper">
-                    {f.icon}
-                  </div>
-                  <h3 className="mb-2 text-lg font-semibold">{f.title}</h3>
-                  <p className="text-sm text-text-secondary">{f.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== PRICING ===== */}
-      <section id="pricing" className="bg-dark py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <Reveal className="mb-16 text-center">
-            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Pricing</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Simple plans.<br />No surprises.</h2>
-          </Reveal>
-          <div className="grid gap-6 lg:grid-cols-3">
-            {PRICING.map(plan => (
-              <Reveal key={plan.name}>
-                <div className={`relative flex h-full flex-col rounded-2xl border p-8 transition ${
-                  plan.featured
-                    ? "border-copper bg-copper/5 shadow-[0_0_40px_rgba(196,90,44,0.15)]"
-                    : "border-white/10 bg-dark-card hover:border-white/20"
-                }`}>
-                  {plan.featured && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-copper px-4 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                      Most Popular
-                    </div>
-                  )}
-                  <h3 className="font-display text-2xl font-bold uppercase">{plan.name}</h3>
-                  <p className="mt-1 text-sm text-text-muted">{plan.desc}</p>
-                  <div className="mt-6 mb-6">
-                    <span className="font-display text-5xl font-900">{plan.price}</span>
-                    {plan.period && <span className="text-text-muted">{plan.period}</span>}
-                  </div>
-                  <ul className="mb-8 flex-1 space-y-3">
-                    {plan.features.map(feat => (
-                      <li key={feat} className="flex items-center gap-3 text-sm text-text-secondary">
-                        <Check size={16} className="shrink-0 text-copper" />
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={APP_URL}
-                    className={`inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-sm font-semibold transition-all ${
-                      plan.featured
-                        ? "bg-copper text-white hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]"
-                        : "border border-white/10 text-white hover:border-copper hover:bg-copper/5"
-                    }`}
-                  >
-                    {plan.cta} <ArrowRight size={14} />
-                  </a>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TESTIMONIALS ===== */}
-      <section className="border-y border-white/5 bg-dark-card py-28">
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 10. TESTIMONIALS ════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="bg-dark-warm py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mb-16 text-center">
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Testimonials</p>
@@ -970,7 +862,7 @@ export default function App() {
           <div className="grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map(t => (
               <Reveal key={t.name}>
-                <div className="flex h-full flex-col rounded-2xl border border-white/5 bg-dark p-8">
+                <div className="flex h-full flex-col rounded-2xl border border-white/5 bg-dark/50 p-8">
                   <div className="mb-4 flex gap-1">
                     {Array.from({ length: 5 }).map((_, idx) => (
                       <Star key={idx} size={16} className="fill-copper text-copper" />
@@ -978,9 +870,7 @@ export default function App() {
                   </div>
                   <p className="mb-6 flex-1 text-sm leading-relaxed text-text-secondary">"{t.text}"</p>
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-copper/10 font-display text-sm font-bold text-copper">
-                      {t.name.charAt(0)}
-                    </div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-copper/10 font-display text-sm font-bold text-copper">{t.name.charAt(0)}</div>
                     <div>
                       <div className="text-sm font-semibold">{t.name}</div>
                       <div className="text-xs text-text-muted">{t.role}, {t.company}</div>
@@ -993,7 +883,9 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== FAQ ===== */}
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 11. FAQ ═════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
       <section id="faq" className="bg-dark py-28">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <Reveal className="mb-12 text-center">
@@ -1001,24 +893,20 @@ export default function App() {
             <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">Got questions?</h2>
           </Reveal>
           <Reveal>
-            <div>
-              {FAQS.map(faq => (
-                <FaqItem key={faq.q} q={faq.q} a={faq.a} />
-              ))}
-            </div>
+            <div>{FAQS.map(faq => <FaqItem key={faq.q} q={faq.q} a={faq.a} />)}</div>
           </Reveal>
         </div>
       </section>
 
-      {/* ===== CTA BANNER ===== */}
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 12. CTA BANNER ═════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-copper py-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,0,0,0.2)_0%,transparent_60%)]" />
         <div className="relative z-10 mx-auto max-w-7xl px-6 text-center lg:px-8">
           <Reveal>
             <h2 className="font-display text-4xl font-900 uppercase tracking-tight text-white lg:text-6xl">Ready to ditch the clipboard?</h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-white/70 leading-relaxed">
-              CMs across the country are already closing out faster. Your turn.
-            </p>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-white/70 leading-relaxed">CMs across the country are already closing out faster. Your turn.</p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-dark px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-900 hover:shadow-xl">
                 Clock In <ArrowRight size={16} />
@@ -1028,17 +916,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== CONTACT ===== */}
-      <section id="contact" className="bg-dark py-28">
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ===== 13. CONTACT ═════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section id="contact" className="bg-dark-cool py-28">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-2 lg:px-8">
           <Reveal>
             <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">Get In Touch</p>
-            <h2 className="mb-6 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">
-              Let's talk.
-            </h2>
-            <p className="mb-10 text-lg text-text-secondary leading-relaxed">
-              Questions? Want a demo? Drop us a line and we'll get back to you within 24 hours.
-            </p>
+            <h2 className="mb-6 font-display text-5xl font-800 uppercase leading-[0.95] tracking-tight lg:text-6xl">Let's talk.</h2>
+            <p className="mb-10 text-lg text-text-secondary leading-relaxed">Questions? Want a demo? Drop us a line and we'll get back to you within 24 hours.</p>
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-copper/10 text-copper"><Phone size={20} /></div>
@@ -1064,7 +950,7 @@ export default function App() {
             </div>
           </Reveal>
           <Reveal>
-            <form onSubmit={e => e.preventDefault()} className="space-y-5 rounded-2xl border border-white/5 bg-dark-card p-8">
+            <form onSubmit={e => e.preventDefault()} className="space-y-5 rounded-2xl border border-white/5 bg-dark/50 p-8">
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-text-muted">Name</label>
@@ -1100,9 +986,7 @@ export default function App() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-copper font-mono text-base font-black text-white">C</div>
                 <span className="text-xl font-bold tracking-tight">The Condenser</span>
               </div>
-              <p className="max-w-sm text-sm text-text-muted leading-relaxed">
-                The punch list tool that works where you do. Built by CMs, for CMs.
-              </p>
+              <p className="max-w-sm text-sm text-text-muted leading-relaxed">The punch list tool that works where you do. Built by CMs, for CMs.</p>
             </div>
             <div>
               <h4 className="mb-4 font-display text-xs font-bold uppercase tracking-wider text-text-muted">Navigation</h4>
