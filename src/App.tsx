@@ -23,7 +23,6 @@ import {
   Send,
   MessageCircle,
   Sparkles,
-  Play,
 } from "lucide-react"
 
 const APP_URL = "https://the-condenser-production.up.railway.app/home"
@@ -640,44 +639,52 @@ export default function App() {
       </section>
 
       {/* ═══════════════════════════════════════════════ */}
-      {/* ===== 3. VIDEO SECTION ═══════════════════════ */}
+      {/* ===== 3. BACKGROUND VIDEO SECTION ════════════ */}
       {/* ═══════════════════════════════════════════════ */}
-      <section className="bg-dark-warm py-24 lg:py-28">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <Reveal className="mb-12 text-center">
-            <p className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">See It In Action</p>
-            <h2 className="font-display text-4xl font-800 uppercase tracking-tight lg:text-5xl">
-              From walkthrough to sent<br />in under 3 minutes
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-text-secondary leading-relaxed">
-              Watch how The Condenser turns a chaotic punch list walkthrough into organized, trade-sorted items — sent to every trade with one tap.
-            </p>
-          </Reveal>
-          <Reveal>
-            <div className="group relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-dark shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-              {/* Thumbnail — replace with actual video embed when ready */}
-              <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=675&fit=crop"
-                alt="Residential home — The Condenser demo"
-                className="absolute inset-0 h-full w-full object-cover opacity-50 transition-opacity duration-500 group-hover:opacity-60"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/30 to-transparent" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <motion.button
-                  className="flex h-20 w-20 items-center justify-center rounded-full bg-copper shadow-[0_0_40px_rgba(196,90,44,0.5)] transition-transform hover:scale-110"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Play size={32} className="ml-1 text-white" fill="white" />
-                </motion.button>
-                <p className="mt-4 font-display text-sm font-bold uppercase tracking-wider text-white/70">Watch the Demo</p>
+      <section className="relative overflow-hidden bg-dark-warm" style={{ minHeight: "70vh" }}>
+        {/* Looping background video — drop your .mp4 in public/hero-bg.mp4 */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+          poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop"
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
+        {/* Animated photo fallback (Ken Burns) — shows when no video file exists */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop"
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ animation: "kenBurns 20s ease-in-out infinite alternate" }}
+          />
+        </div>
+        {/* Dark overlays for readability */}
+        <div className="absolute inset-0 bg-dark/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-dark/50 via-transparent to-transparent" />
+
+        {/* Content */}
+        <div className="relative z-10 flex min-h-[70vh] items-center">
+          <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+            <Reveal>
+              <p className="mb-4 font-display text-sm font-bold uppercase tracking-[0.2em] text-copper">See It In Action</p>
+              <h2 className="max-w-3xl font-display text-5xl font-900 uppercase leading-[0.9] tracking-tight text-white lg:text-7xl">
+                From walkthrough<br />to sent in under<br />3 minutes
+              </h2>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
+                Walk the house. Check items off. Hit send. Every trade gets a clean, formatted punch list — via iMessage, text, or email. No other app in construction does this.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-copper px-8 py-4 text-base font-semibold text-white transition hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]">
+                  Try It Now <ArrowRight size={16} />
+                </a>
               </div>
-              <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                <span className="rounded-full bg-dark/70 px-3 py-1 font-mono text-[10px] text-white/60">2:47</span>
-                <span className="rounded-full bg-copper/20 border border-copper/30 px-3 py-1 font-mono text-[10px] text-copper">HD</span>
-              </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
         </div>
       </section>
 

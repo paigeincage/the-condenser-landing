@@ -55,6 +55,14 @@ body {
   .animate-fade-up { animation: none; opacity: 1; }
 }
 
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-2%, -1%); }
+}
+
+/* When video loads, hide the fallback photo behind it */
+video:not([src=""]) + div { z-index: -1; }
+
 .font-display {
   font-family: 'Barlow Condensed', sans-serif;
 }
