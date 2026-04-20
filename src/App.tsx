@@ -5,8 +5,10 @@ import {
   ClipboardList, Mic, Smartphone, Zap, Shield, BarChart3, Check,
   Send, MessageCircle, Sparkles,
   Camera, AlertTriangle, User, DollarSign, Cloud, PenLine, Calendar,
-  Headphones, BookOpen, Users,
+  Headphones, BookOpen, Users, Loader2, Lock,
 } from "lucide-react"
+import { track } from "./lib/analytics"
+import { subscribe } from "./lib/beehiiv"
 
 const COMPANY = "BuildCore"
 const PRODUCT = "The Condenser"
@@ -175,6 +177,24 @@ export default function App() {
   const [showHint, setShowHint] = useState(true)
   const [selectedChannel, setSelectedChannel] = useState("")
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly")
+  const [foundingEmail, setFoundingEmail] = useState("")
+  const [foundingStatus, setFoundingStatus] = useState<{ kind: "idle" | "loading" | "ok" | "error"; message?: string }>({ kind: "idle" })
+
+  const handleFoundingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (foundingStatus.kind === "loading") return
+    setFoundingStatus({ kind: "loading" })
+    track("founding_user_submit_attempt")
+    const result = await subscribe(foundingEmail.trim(), { utmCampaign: "founding-user" })
+    if (result.ok) {
+      setFoundingStatus({ kind: "ok", message: "You're on the list. Check your inbox." })
+      track("founding_user_submit_success")
+      setFoundingEmail("")
+    } else {
+      setFoundingStatus({ kind: result.reason === "not-configured" ? "ok" : "error", message: result.message })
+      track("founding_user_submit_error", { reason: result.reason })
+    }
+  }
 
   const progressPercent = Math.min((checkedItems.size / COMPLETE_THRESHOLD) * 100, 100)
   const isComplete = checkedItems.size >= COMPLETE_THRESHOLD
@@ -257,8 +277,13 @@ export default function App() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,0,0,0.3)_0%,transparent_60%)]" />
         <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pt-20 lg:flex-row lg:items-center lg:gap-16 lg:px-8">
           <div className="flex-1 py-16 lg:py-0">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white/80 backdrop-blur-sm">
-              <Sparkles size={14} className="text-white" /> Powered by {PRODUCT}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-4 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white/80 backdrop-blur-sm">
+                <Sparkles size={14} className="text-white" /> Powered by {PRODUCT}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-white/70 backdrop-blur-sm">
+                <Lock size={11} className="text-white" /> Offline-first &middot; Data stays yours
+              </span>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
               className="font-display text-6xl font-900 uppercase leading-[0.9] tracking-tight text-white sm:text-7xl lg:text-8xl xl:text-9xl">
@@ -268,8 +293,8 @@ export default function App() {
               The residential construction platform that handles punch lists, trade communication, safety reporting, and homeowner updates — all from the field.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }} className="mt-10 flex flex-wrap gap-4">
-              <a href={APP_URL} className="inline-flex items-center gap-2 rounded-lg bg-dark px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-900 hover:shadow-xl">Clock In <ArrowRight size={16} /></a>
-              <a href="#features" className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 px-8 py-4 text-base font-semibold text-white transition hover:border-white/60 hover:bg-white/10">See Features</a>
+              <a href={APP_URL} onClick={() => track("cta_click", { location: "hero", label: "clock-in" })} className="inline-flex items-center gap-2 rounded-lg bg-dark px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-900 hover:shadow-xl">Clock In <ArrowRight size={16} /></a>
+              <a href="#features" onClick={() => track("cta_click", { location: "hero", label: "see-features" })} className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 px-8 py-4 text-base font-semibold text-white transition hover:border-white/60 hover:bg-white/10">See Features</a>
             </motion.div>
           </div>
 
@@ -472,11 +497,11 @@ export default function App() {
           <Reveal className="mb-12 flex justify-center">
             <div className="inline-flex items-center rounded-full border border-light-border bg-light-card p-1 shadow-sm">
               <button
-                onClick={() => setBillingCycle("monthly")}
+                onClick={() => { setBillingCycle("monthly"); track("billing_toggle", { cycle: "monthly" }) }}
                 className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${billingCycle === "monthly" ? "bg-copper text-white shadow-sm" : "text-text-on-light-2 hover:text-text-on-light"}`}
               >Monthly</button>
               <button
-                onClick={() => setBillingCycle("annual")}
+                onClick={() => { setBillingCycle("annual"); track("billing_toggle", { cycle: "annual" }) }}
                 className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-all ${billingCycle === "annual" ? "bg-copper text-white shadow-sm" : "text-text-on-light-2 hover:text-text-on-light"}`}
               >Annual <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${billingCycle === "annual" ? "bg-white/20 text-white" : "bg-copper/10 text-copper"}`}>Save ~18%</span></button>
             </div>
@@ -508,7 +533,7 @@ export default function App() {
                     <ul className="mb-8 flex-1 space-y-3">
                       {plan.features.map(feat => (<li key={feat} className="flex items-center gap-3 text-sm text-text-on-light-2"><Check size={16} className="shrink-0 text-copper" /> {feat}</li>))}
                     </ul>
-                    <a href={APP_URL} className={`inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-sm font-semibold transition-all ${plan.featured ? "bg-copper text-white hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]" : "border border-light-border text-text-on-light hover:border-copper hover:bg-copper/5"}`}>{plan.cta} <ArrowRight size={14} /></a>
+                    <a href={APP_URL} onClick={() => track("pricing_tier_click", { tier: plan.name, cycle: billingCycle })} className={`inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-sm font-semibold transition-all ${plan.featured ? "bg-copper text-white hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]" : "border border-light-border text-text-on-light hover:border-copper hover:bg-copper/5"}`}>{plan.cta} <ArrowRight size={14} /></a>
                     {plan.trial && <p className="mt-2 text-center text-xs text-text-on-light-muted">No credit card required</p>}
                   </div>
                 </Reveal>
@@ -571,10 +596,31 @@ export default function App() {
             <p className="mx-auto max-w-xl text-lg leading-relaxed text-text-on-light-2">We're onboarding a small group of construction managers to steer what comes next. Get in early, influence the roadmap, lock in founding pricing.</p>
           </Reveal>
           <Reveal>
-            <form onSubmit={e => e.preventDefault()} className="mx-auto flex max-w-xl flex-col gap-3 sm:flex-row">
-              <input type="email" required placeholder="you@yourcompany.com" className="flex-1 rounded-lg border border-light-border bg-light-card px-4 py-3.5 text-sm text-text-on-light placeholder-neutral-400 outline-none transition focus:border-copper" />
-              <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-copper px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-copper-light">Claim a Spot <ArrowRight size={14} /></button>
+            <form onSubmit={handleFoundingSubmit} className="mx-auto flex max-w-xl flex-col gap-3 sm:flex-row">
+              <input
+                type="email"
+                required
+                value={foundingEmail}
+                onChange={e => setFoundingEmail(e.target.value)}
+                placeholder="you@yourcompany.com"
+                disabled={foundingStatus.kind === "loading" || foundingStatus.kind === "ok"}
+                className="flex-1 rounded-lg border border-light-border bg-light-card px-4 py-3.5 text-sm text-text-on-light placeholder-neutral-400 outline-none transition focus:border-copper disabled:opacity-60"
+              />
+              <button
+                type="submit"
+                disabled={foundingStatus.kind === "loading" || foundingStatus.kind === "ok"}
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-copper px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-copper-light disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {foundingStatus.kind === "loading" ? <Loader2 size={14} className="animate-spin" /> : <ArrowRight size={14} />}
+                {foundingStatus.kind === "ok" ? "You're in" : foundingStatus.kind === "loading" ? "Submitting" : "Claim a Spot"}
+              </button>
             </form>
+            {foundingStatus.kind === "ok" && foundingStatus.message && (
+              <p className="mt-3 text-center text-sm font-semibold text-emerald-700">{foundingStatus.message}</p>
+            )}
+            {foundingStatus.kind === "error" && foundingStatus.message && (
+              <p className="mt-3 text-center text-sm font-semibold text-red-700">{foundingStatus.message}</p>
+            )}
             <p className="mt-4 text-center font-mono text-xs uppercase tracking-wider text-text-on-light-muted">Limited to the first 50 field operators &middot; No credit card</p>
           </Reveal>
         </div>
