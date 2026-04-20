@@ -11,6 +11,7 @@ import {
 const COMPANY = "BuildCore"
 const PRODUCT = "The Condenser"
 const APP_URL = "https://the-condenser-production.up.railway.app/home"
+const API_URL = "https://the-condenser-production.up.railway.app"
 
 /* ── Reveal ── */
 function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -164,6 +165,7 @@ export default function App() {
     setEmailSubmitted(true); setShowGate(false); setShowExport(false); fireConfetti()
     setTimeout(() => setShowSentConfirm(true), 300)
     setTimeout(() => setShowSentConfirm(false), 4000)
+    try { fetch(`${API_URL}/api/waitlist`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: demoEmail, source: "phone_demo" }) }); } catch {}
   }
 
   useEffect(() => {
@@ -522,7 +524,7 @@ export default function App() {
                     <p className="mt-1 text-sm text-text-on-light-2">We'll reach out soon with your early access invite.</p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); if (fd.get("email")) { setEmailSubmitted(true); setDemoEmail(fd.get("email") as string); } }} className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+                  <form onSubmit={async (e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); const email = fd.get("email") as string; if (!email) return; setEmailSubmitted(true); setDemoEmail(email); try { await fetch(`${API_URL}/api/waitlist`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, source: "founding_user_cta" }) }); } catch {} }} className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
                     <input type="email" name="email" required placeholder="your@email.com" className="flex-1 rounded-lg border border-light-border bg-light px-4 py-3.5 text-sm text-text-on-light placeholder-neutral-400 outline-none transition focus:border-copper" />
                     <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-copper px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-copper-light hover:shadow-[0_0_24px_rgba(196,90,44,0.4)]">
                       Claim Your Spot <ArrowRight size={14} />
