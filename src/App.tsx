@@ -237,7 +237,7 @@ export default function App() {
               <div className="relative min-h-[440px] overflow-hidden rounded-[24px] bg-dark-card">
                 <div className="z-20 bg-dark-card px-5 pt-5 pb-3">
                   <div className="relative mb-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
-                    <motion.div className="h-full rounded-full" style={{ background: isComplete ? "linear-gradient(90deg,#22C55E,#16A34A)" : "linear-gradient(90deg,#C45A2C,#D4703C)" }} initial={{ width: 0 }} animate={{ width: `${progressPercent}%` }} transition={{ type: "spring", stiffness: 200, damping: 20 }} />
+                    <motion.div className="h-full rounded-full" style={{ background: isComplete ? "linear-gradient(90deg,#22C55E,#16A34A)" : "linear-gradient(90deg,#500000,#8B1429)" }} initial={{ width: 0 }} animate={{ width: `${progressPercent}%` }} transition={{ type: "spring", stiffness: 200, damping: 20 }} />
                     {isComplete && <motion.div className="absolute inset-0 rounded-full" initial={{ opacity: 0 }} animate={{ opacity: [0, 0.6, 0] }} transition={{ duration: 1.2, repeat: 2 }} style={{ boxShadow: "0 0 12px #22C55E, 0 0 24px #22C55E" }} />}
                   </div>
                   <div className="flex items-center justify-between">
@@ -310,7 +310,7 @@ export default function App() {
                 {/* Phone confetti */}
                 <AnimatePresence>{showConfetti && (
                   <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }} className="pointer-events-none absolute inset-0 z-[60] overflow-hidden">
-                    {Array.from({ length: 30 }).map((_, i) => { const a = (i / 30) * Math.PI * 2, d = 40 + (i % 4) * 25; return (<motion.div key={i} className="absolute" style={{ left: "50%", top: "40%", width: i % 3 === 0 ? 8 : 5, height: i % 3 === 0 ? 8 : 5, borderRadius: i % 2 === 0 ? "50%" : "2px", backgroundColor: ["#C45A2C", "#22C55E", "#F59E0B", "#0B93F6", "#EC4899", "#A855F7"][i % 6] }} initial={{ x: 0, y: 0, scale: 0, opacity: 1 }} animate={{ x: Math.cos(a) * d, y: Math.sin(a) * d, scale: [0, 1.8, 0.5], opacity: [1, 1, 0], rotate: [0, 200 + i * 40] }} transition={{ duration: 1.2, ease: "easeOut" }} />) })}
+                    {Array.from({ length: 30 }).map((_, i) => { const a = (i / 30) * Math.PI * 2, d = 40 + (i % 4) * 25; return (<motion.div key={i} className="absolute" style={{ left: "50%", top: "40%", width: i % 3 === 0 ? 8 : 5, height: i % 3 === 0 ? 8 : 5, borderRadius: i % 2 === 0 ? "50%" : "2px", backgroundColor: ["#8B1429", "#22C55E", "#F59E0B", "#0B93F6", "#EC4899", "#A855F7"][i % 6] }} initial={{ x: 0, y: 0, scale: 0, opacity: 1 }} animate={{ x: Math.cos(a) * d, y: Math.sin(a) * d, scale: [0, 1.8, 0.5], opacity: [1, 1, 0], rotate: [0, 200 + i * 40] }} transition={{ duration: 1.2, ease: "easeOut" }} />) })}
                   </motion.div>
                 )}</AnimatePresence>
               </div>
@@ -613,7 +613,7 @@ export default function App() {
             {Array.from({ length: 80 }).map((_, i) => {
               const xStart = (i / 80) * 100 + ((i * 7) % 13) - 6
               const size = i % 4 === 0 ? 12 : i % 3 === 0 ? 8 : 6
-              const colors = ["#C45A2C", "#22C55E", "#F59E0B", "#0B93F6", "#EC4899", "#A855F7", "#FFFFFF"]
+              const colors = ["#8B1429", "#22C55E", "#F59E0B", "#0B93F6", "#EC4899", "#A855F7", "#FFFFFF"]
               return (<motion.div key={i} className="absolute" style={{ left: `${xStart}%`, top: -20, width: size, height: i % 5 === 0 ? size : size * 0.6, borderRadius: i % 3 === 0 ? "50%" : "2px", backgroundColor: colors[i % colors.length] }}
                 initial={{ y: -20, opacity: 1, rotate: 0, scale: 0 }}
                 animate={{ y: 1200, opacity: [0, 1, 1, 0.8, 0], rotate: 360 + i * 60, scale: [0, 1.2, 1, 0.8], x: [0, Math.sin(i * 0.8) * 80, Math.sin(i * 1.2) * -60, Math.sin(i * 0.5) * 40] }}
